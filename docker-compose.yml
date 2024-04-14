@@ -1,0 +1,51 @@
+services:
+  directus:
+    image: directus/directus:10.10.5
+    ports:
+      - 8055:8055
+    volumes:
+      - ./database:/directus/database
+      - ./uploads:/directus/uploads
+      - ./extensions:/directus/extensions
+    environment:
+      HOST: "0.0.0.0"
+      KEY: "db43b7af-xxxx-xxxx-xxxx-20825dc96bdc"
+      SECRET: "uXTlkJXXXgFgoUXXXdUjSPoXXXXXXXXj86K"
+      DB_CLIENT: "pg"
+      #DB_CONNECTION_STRING: "postgresql://almadbanes_owner:N95XwGecgFqA@ep-jolly-meadow-a5n01ssn.us-east-2.aws.neon.tech/almadbanes?sslmode=require"
+      #ENDPOINT_ID: "ep-jolly-meadow-a5n01ssn"
+      DB_DATABASE: "almadbanes"
+      DB_HOST: "postgres"
+      DB_PORT: 5432
+      DB_USER: "almadbanes_owner"
+      DB_PASSWORD: "N95XwGecgFqA"
+      DB_SSL: false
+      RATE_LIMITER_ENABLED: true
+      RATE_LIMITER_STORE: "memory"
+      RATE_LIMITER_POINTS: 25
+      RATE_LIMITER_DURATION: 1
+      CACHE_ENABLED: false
+      STORAGE_LOCATIONS: "cloudinary"
+      STORAGE_CLOUDINARY_DRIVER: "cloudinary"
+      STORAGE_CLOUDINARY_CLOUD_NAME: "dtbrwgexl"
+      STORAGE_CLOUDINARY_API_KEY: "152969393469693"
+      STORAGE_CLOUDINARY_API_SECRET:  "VqytydloOwmQV6nmeTzXrK1ME9s"
+      STORAGE_CLOUDINARY_ACCESS_MODE: "public"
+      ACCESS_TOKEN_TTL: "15m"
+      REFRESH_TOKEN_TTL: "7d"
+      REFRESH_TOKEN_COOKIE_SECURE: false
+      REFRESH_TOKEN_COOKIE_SAME_SITE: "lax"
+      REFRESH_TOKEN_COOKIE_NAME: "directus_refresh_token"
+      ADMIN_EMAIL: "admin@test.com"
+      ADMIN_PASSWORD: "SUper$0*-S"
+  postgres:
+    container_name: postgres
+    image: bitnami/postgresql:latest
+    volumes:
+      - ./postgres:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=almadbanes_owner
+      - POSTGRES_PASSWORD=N95XwGecgFqA
+      - POSTGRES_DB=almadbanes
+    ports:
+      - 5432:5432
